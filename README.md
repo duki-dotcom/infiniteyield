@@ -8,7 +8,9 @@ This version is designed for [Duki's WL GUI](https://github.com/duki-dotcom/WL-G
 <a href="https://discord.gg/aywReXD59Z"><img src="https://files.catbox.moe/klbeou.png" alt="discord" width="48"></a>  
 Based on the original Infinite Yield — the best Roblox command line script.
 
+```
 loadstring(game:HttpGet("https://raw.githubusercontent.com/duki-dotcom/infiniteyield-wizardlife/master/source"))()
+```
 
 - Optimized for *Wizard Life*  
 - Built on top of Infinite Yield’s 400+ commands  
