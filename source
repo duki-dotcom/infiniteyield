@@ -8921,19 +8921,36 @@ addcmd('un2022materials',{'unuse2022materials'},function(args, speaker)
 	end
 end)
 
-addcmd('goto',{'to'},function(args, speaker)
-	local players = getPlayer(args[1], speaker)
-	for i,v in pairs(players)do
-		if Players[v].Character ~= nil then
-			if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
-				speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
-				wait(.1)
-			end
-			getRoot(speaker.Character).CFrame = getRoot(Players[v].Character).CFrame + Vector3.new(3,1,0)
-		end
-	end
-	execCmd('breakvelocity')
+addcmd('goto', {'to'}, function(args, speaker)
+    local players = getPlayer(args[1], speaker)
+    for i, v in pairs(players) do
+        if Players[v].Character ~= nil then
+            local targetHRP = getRoot(Players[v].Character)
+            local myHRP = getRoot(speaker.Character)
+            
+            if myHRP then
+                -- Fire the apparate event before teleporting
+                game:GetService("ReplicatedStorage").Events.WandEvent:FireServer("apparate", true)
+                wait(0.3)
+                
+                -- Make the speaker stand up if sitting
+                local humanoid = speaker.Character:FindFirstChildOfClass('Humanoid')
+                if humanoid and humanoid.SeatPart then
+                    humanoid.Sit = false
+                    wait(0.1)
+                end
+                
+                -- Teleport the speaker near the target
+                myHRP.CFrame = targetHRP.CFrame + Vector3.new(3, 1, 0)
+                
+                -- Fire the apparate event after teleporting
+                game:GetService("ReplicatedStorage").Events.WandEvent:FireServer("apparate", false)
+            end
+        end
+    end
+    execCmd('breakvelocity')
 end)
+
 
 addcmd('tweengoto',{'tgoto','tto','tweento'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
