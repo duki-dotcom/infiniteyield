@@ -8931,6 +8931,7 @@ addcmd('goto', {'to'}, function(args, speaker)
             if myHRP then
                 -- Fire the apparate event before teleporting
                 game:GetService("ReplicatedStorage").Events.WandEvent:FireServer("apparate", true)
+				print("appa true")
                 wait(0.3)
                 
                 -- Make the speaker stand up if sitting
@@ -8945,6 +8946,7 @@ addcmd('goto', {'to'}, function(args, speaker)
                 
                 -- Fire the apparate event after teleporting
                 game:GetService("ReplicatedStorage").Events.WandEvent:FireServer("apparate", false)
+				print("appa false")
             end
         end
     end
